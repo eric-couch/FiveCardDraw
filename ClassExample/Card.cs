@@ -1,6 +1,6 @@
 ﻿namespace ClassExample
 {
-    internal class Card
+    public class Card
     {
         public string suit { get; set; }
         public string rank { get; set; }
