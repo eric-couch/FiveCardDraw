@@ -20,7 +20,7 @@
 
         public override string? ToString()
         {
-            return String.Format($"{rank}{suit}");
+            return String.Format($"{rank}{(suit == "♠" || suit == "♣"?"\u001b[34m":"\u001b[31m")}{suit}\u001b[0m");
         }
     }
 }

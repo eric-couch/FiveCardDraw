@@ -60,16 +60,16 @@ namespace ClassExample
                     switch (suit)
                     {
                         case 0:
-                            convertedSuit = "\u001b[34m♠\u001b[0m";
+                            convertedSuit = "♠";
                             break;
                         case 1:
-                            convertedSuit = "\u001b[34m♣\u001b[0m";
+                            convertedSuit = "♣";
                             break;
                         case 2:
-                            convertedSuit = "\u001b[31m♥\u001b[0m";
+                            convertedSuit = "♥";
                             break;
                         case 3:
-                            convertedSuit = "\u001b[31m♦\u001b[0m";
+                            convertedSuit = "♦";
                             break;
                     }
 

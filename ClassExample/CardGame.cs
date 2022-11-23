@@ -40,7 +40,8 @@ namespace ClassExample
                 {
                     isFlush = false;
                     break;
-                } else
+                }
+                else
                 {
                     isFlush = true;
                     lastSuit = cards[cardNum].suit;

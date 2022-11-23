@@ -58,8 +58,10 @@
                         Console.Clear();
                         Console.WriteLine($"{ThisPlayer.Name}'s Hand: ");
                         CardGame.ShowHand(ThisPlayer.Hand, true);
+                        Console.WriteLine($"{ThisPlayer.Name}'s Hand Rank: {CardGame.DetermineHand(ThisPlayer.Hand)}");
                         Console.WriteLine("Computer Player's Hand");
                         CardGame.ShowHand(ComputerPlayer.Hand, true);
+                        Console.WriteLine($"Computer Player's Hand Rank: {CardGame.DetermineHand(ComputerPlayer.Hand)}");
                     }
                     
                 }
