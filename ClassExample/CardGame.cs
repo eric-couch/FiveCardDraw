@@ -24,47 +24,43 @@ namespace ClassExample
         // assuming five cards for now
         public static HandRank DetermineHand(List<Card> cards)
         {
-            bool isFlush = false;
-            bool isStraight = false;
 
             HandRank thisHandRank = HandRank.HighCard;
-            //if (cards.GroupBy(c => c.suit).Count() > 1)
-            //{
-            //    isFlush = false;
-            //}
 
-            string lastSuit = cards[0].suit;
-            for (int cardNum = 1; cardNum <= cards.Count; cardNum++)
+            var cardGroups = from c in cards
+                             group c by new { c.val } into g
+                             select new { rank = g.Key, count = g.Count() };
+
+            if (cardGroups.Where(c => c.count == 4).Any())
             {
-                if (cards[cardNum].suit != lastSuit)
+                thisHandRank = HandRank.FourOfAKind;
+            } else if (cardGroups.Where(c => c.count == 3).Any())
+            {
+                if (cardGroups.Where(c => c.count == 2).Any())
                 {
-                    isFlush = false;
-                    break;
+                    thisHandRank = HandRank.FullHouse;
+                } else
+                {
+                    thisHandRank = HandRank.ThreeOfAKind;
                 }
-                else
+            } else if (cardGroups.Where(c => c.count == 2).Any())
+            {
+                if (cardGroups.Where(c => c.count == 2).Count() == 2)
                 {
-                    isFlush = true;
-                    lastSuit = cards[cardNum].suit;
+                    thisHandRank = HandRank.TwoPair;
+                } else
+                {
+                    thisHandRank = HandRank.Pair;
                 }
             }
-            if (isFlush)
-            {
-                thisHandRank = HandRank.Flush;
-            }
+
             return thisHandRank;
         }
 
+
         public static bool CheckForAce(List<Card> cards)
         {
-            bool aceInHand = false;
-            foreach (Card card in cards)
-            {
-                if (card.rank == "A")
-                {
-                    aceInHand = true;
-                }
-            }
-            return aceInHand;
+            return cards.Exists(c => c.rank == "A");
         }
 
         public static void ShowHand(List<Card> handCards, bool ShowPos)
