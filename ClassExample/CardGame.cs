@@ -31,24 +31,38 @@ namespace ClassExample
                              group c by new { c.val } into g
                              select new { rank = g.Key, count = g.Count() };
 
+            //var cardSuits = from c in cards
+            //                group c by new { c.suit } into g
+            //                select new { suit = g.Key, count = g.Count() };
+
             if (cardGroups.Where(c => c.count == 4).Any())
             {
                 thisHandRank = HandRank.FourOfAKind;
-            } else if (cardGroups.Where(c => c.count == 3).Any())
+            }
+            else if (cardGroups.Where(c => c.count == 3).Any())
             {
                 if (cardGroups.Where(c => c.count == 2).Any())
                 {
                     thisHandRank = HandRank.FullHouse;
-                } else
+                }
+                else
                 {
                     thisHandRank = HandRank.ThreeOfAKind;
                 }
-            } else if (cardGroups.Where(c => c.count == 2).Any())
+            }
+            else if ((from c in cards
+                      group c by new { c.suit } into g
+                      select new { suit = g.Key, count = g.Count() }).Count() == 1)
+            {
+                thisHandRank = HandRank.Flush;
+            }
+            else if (cardGroups.Where(c => c.count == 2).Any())
             {
                 if (cardGroups.Where(c => c.count == 2).Count() == 2)
                 {
                     thisHandRank = HandRank.TwoPair;
-                } else
+                }
+                else
                 {
                     thisHandRank = HandRank.Pair;
                 }

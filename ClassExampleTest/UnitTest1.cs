@@ -189,5 +189,41 @@ namespace ClassExampleTest
             Assert.AreNotEqual(CardGame.HandRank.TwoPair, myHandRank);
         }
 
+        [Test]
+        public void CardHandTestForFlush_True()
+        {
+            // Arrange
+            List<Card> Hand = new List<Card>()
+            {
+                new Card("4", "♣",4),
+                new Card("4", "♣",4),
+                new Card("3", "♣",3),
+                new Card("2", "♣",2),
+                new Card("3", "♣",3)
+            };
+            // Act
+            CardGame.HandRank myHandRank = CardGame.DetermineHand(Hand);
+            // Assert 
+            Assert.AreEqual(CardGame.HandRank.Flush, myHandRank);
+        }
+
+        [Test]
+        public void CardHandTestForFlush_False()
+        {
+            // Arrange
+            List<Card> Hand = new List<Card>()
+            {
+                new Card("4", "♠",4),
+                new Card("6", "♣",6),
+                new Card("4", "♣",4),
+                new Card("2", "♣",2),
+                new Card("3", "♣",3)
+            };
+            // Act
+            CardGame.HandRank myHandRank = CardGame.DetermineHand(Hand);
+            // Assert 
+            Assert.AreNotEqual(CardGame.HandRank.Flush, myHandRank);
+        }
+
     }
 }
